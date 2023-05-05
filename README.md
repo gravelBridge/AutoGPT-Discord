@@ -1,5 +1,5 @@
 # AutoGPT-Discord
-## A plugin to enable you to control your AutoGPT instance from Discord. Now, you can just run AutoGPT, and control it from anywhere with Discord!
+## A plugin to enable you to control and watch your AutoGPT instance from Discord!
 
 <img width="1396" alt="Screenshot 2023-05-04 at 9 20 42 PM" src="https://user-images.githubusercontent.com/107640947/236398536-fd57dad6-1fb7-42a7-ae3f-e231a9e2a4c1.png">
 
