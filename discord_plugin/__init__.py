@@ -10,7 +10,6 @@ import os
 
 PromptGenerator = TypeVar("PromptGenerator")
 
-askForUserInput = False
 authedCommand = ""
 
 class Message(TypedDict):
@@ -68,9 +67,11 @@ class AutoGPTDiscord(AutoGPTPluginTemplate):
                 + f"{self._name} - {self._version} - Discord plugin loaded!"
             )
             try:
-                if os.getenv("ASK_FOR_INPUT"):
+                if os.getenv("ASK_FOR_INPUT") == "True":
                     askForUserInput = True
                     prompt.add_command("command_denied", "If you are told to run this command, or this command has been run, then the user has denied your request to run your command. Do not attempt to run the same command again.", {}, commandUnauthorized)
+                else:
+                    askForUserInput = False
 
             except:
                 print(
@@ -222,7 +223,7 @@ class AutoGPTDiscord(AutoGPTPluginTemplate):
         """
         global authedCommand
         if askForUserInput:
-            if command_name != "get_user_input" and command_name != authedCommand:
+            if command_name != authedCommand:
                 authedCommand = ""
                 input = wait_for_user_input(command_name, arguments)
                 if input == "Authorized":
@@ -235,7 +236,7 @@ class AutoGPTDiscord(AutoGPTPluginTemplate):
             else:
                 return (command_name, arguments)
         else:
-            pass
+            return (command_name, arguments)
 
     def can_handle_post_command(self) -> bool:
         """This method is called to check that the plugin can
