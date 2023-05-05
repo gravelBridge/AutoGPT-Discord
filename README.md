@@ -21,6 +21,23 @@
 - Scroll down and copy the link. Paste the link into a new tab, and invite the bot to a server of your choosing! (You must have admin access to this server)
 - Go back to the bot tab, and press Reset Token. Copy this token, and keep this safe, as you will use this to configure the plugin later on.
 
+## ⚙️ Installation
+
+Follow these steps to configure the AutoGPT Bing AI Plugin:
+
+### 1. Clone this Repository
+cd into a folder that you can find easily. For example: `cd desktop`. 
+Then, paste this command: `git clone https://github.com/gravelBridge/AutoGPT-Discord.git`
+
+### 2. Navigate to the folder
+Navigate to the folder where you ran the cd command
+
+### 3. Zip the BingAI folder
+On MacOS, right click the BingAI folder and press `Compress`. On windows, right click the folder, and press `Send to > Compressed (zipped)`.
+
+### 4. Move the zip file
+Move the new discord_plugin.zip file to the AutoGPT plugins directory, there should already be a file there titled `__PUT_PLUGIN_ZIPS_HERE__`.
+
 ## 🔧 Configuration
 
 1. **Update the .env file**: Add the following lines to your `.env` file:
