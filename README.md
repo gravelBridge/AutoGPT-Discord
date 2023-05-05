@@ -32,7 +32,7 @@ Then, paste this command: `git clone https://github.com/gravelBridge/AutoGPT-Dis
 ### 2. Navigate to the folder
 Navigate to the folder where you ran the cd command
 
-### 3. Zip the BingAI folder
+### 3. Zip the discord_plugin folder
 On MacOS, right click the BingAI folder and press `Compress`. On windows, right click the folder, and press `Send to > Compressed (zipped)`.
 
 ### 4. Move the zip file
