@@ -62,8 +62,10 @@ class AutoGPT_Discord(discord.Client):
                     await channel.send(msg)
                 except:
                     await channel.send("--------------------------------------------------")
-
-                    await channel.send(message)
+                    try:
+                        await channel.send(message)
+                    except:
+                        await channel.send("A response from AutoGPT was failed to be parsed. Don't worry, this is not critical. However, if this error appears several times in a row, please ask for help. <3")
                 messagesToSend.remove(message)
         
         if waitingForReply[0]:
@@ -88,7 +90,7 @@ class AutoGPT_Discord(discord.Client):
             return
         
         if message.content.startswith(BOT_PREFIX + "shutdown") and str(message.author.id) in AUTHORIZED_USER_IDS:
-            await message.reply("Shutting down AutoGPT...")
+            await message.reply("AutoGPT Shut Down!")
             os._exit(0)
         
         elif message.content.startswith(BOT_PREFIX + "shutdown"):
