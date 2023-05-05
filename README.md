@@ -23,7 +23,7 @@
 
 ## ⚙️ Installation
 
-Follow these steps to configure the AutoGPT Bing AI Plugin:
+Follow these steps to configure the AutoGPT Discord Plugin:
 
 ### 1. Clone this Repository
 cd into a folder that you can find easily. For example: `cd desktop`. 
