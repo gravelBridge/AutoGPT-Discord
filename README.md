@@ -14,7 +14,7 @@
 2. **Discord Bot Token**: Visit the link https://discord.com/developers/docs/getting-started
 - Press the Create App button and log in with your Discord account.
 - Name the app anything you want, I like to name it AutoGPT for readability.
-- Navigate to the Bot tab on the left side of the screen, and press scroll down to the Priviliged Gateway Intents section.
+- Navigate to the Bot tab on the left side of the screen, and scroll down to the Priviliged Gateway Intents section.
 - Enable the Server Members Intent and the Message Content Intent.
 - Then, press the OAuth2 -> URL Generator tab.
 - Press bot in the scopes section. Then, in bot permissions, check send messages and read message history.
