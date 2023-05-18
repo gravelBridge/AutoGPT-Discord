@@ -87,7 +87,7 @@ class AutoGPTDiscord(AutoGPTPluginTemplate):
                 + f"{self._name} - {self._version} - Discord plugin not loaded, because not all the environmental variables were set in the env configuration file."
             )
 
-        messagesToSend.append(Message(role="ON_BOOT", content="AutoGPT Discord Bot up and running! Make sure to leave a star on the GitHub repo! <3"))
+        messagesToSend.append(Message(role="ON_BOOT", content=""))
 
         return prompt
     

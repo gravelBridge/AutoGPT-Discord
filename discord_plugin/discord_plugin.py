@@ -117,7 +117,7 @@ def run_bot():
 def wait_for_user_input(name, args):
     arguments = ""
     
-    #TODO: There has to be a bettter way to check this than this shitty if
+    #TODO: There has to be a bettter way to check this than this shitty if, also that parse dont work properly
     if "items" in args:
         for key, value in args.items():
             arguments += f"Argument name: {key} Argument value: {value}\n"

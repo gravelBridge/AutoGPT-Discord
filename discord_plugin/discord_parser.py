@@ -10,12 +10,20 @@ def parseAutoGPTMessage(message: Message):
     """
     Initialize Discord message embedding
     """
-    embed=discord.Embed(title=defineType(message["role"]),
-                            url="",
-                            description="",
-                            color=discord.Color.purple())
-    embed.set_author(name="", url="", icon_url="")
-    embed.set_thumbnail(url="")
+    if(defineType(message["role"]) == "Welcome!"):
+        embed=discord.Embed(title=defineType(message["role"]),
+                                url="https://github.com/gravelBridge/AutoGPT-Discord",
+                                description="AutoGPT Discord Bot just woke up. Peace!",
+                                color=discord.Color.purple())
+        embed.set_author(name="gravelBridge", url="https://github.com/gravelBridge/AutoGPT-Discord", icon_url="https://avatars.githubusercontent.com/u/107640947?v=4")
+        embed.set_thumbnail(url="")
+    else:
+        embed=discord.Embed(title=defineType(message["role"]),
+                                url="",
+                                description="",
+                                color=discord.Color.purple())
+        embed.set_author(name="", url="", icon_url="")
+        embed.set_thumbnail(url="")
 
     try:
         parsed = json.loads(message["content"])
