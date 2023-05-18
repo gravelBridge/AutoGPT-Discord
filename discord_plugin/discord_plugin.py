@@ -1,7 +1,9 @@
 import discord
 import os
+from typing import TypedDict
 from colorama import Fore
 from discord.ext import tasks
+from .discord_parser import parseAutoGPTMessage
 import json
 import time
 
@@ -23,6 +25,9 @@ waitingForReply = [False]
 
 finishedLoggingIn = [False]
 
+class Message(TypedDict):
+    role: str
+    content: str
 
 class AutoGPT_Discord(discord.Client):
 
@@ -43,27 +48,11 @@ class AutoGPT_Discord(discord.Client):
         if len(messagesToSend) > 0:
             for message in messagesToSend:
                 try:
-                    parsed = json.loads(message)
-                    msg = ""
-                    msg += "Thoughts: " + parsed["thoughts"]["text"] + "\n"
-                    msg += "Reasoning: " + parsed["thoughts"]["reasoning"] + "\n"
-                    msg += "Plan: " + parsed["thoughts"]["plan"] + "\n"
-                    msg += "Criticism: " + parsed["thoughts"]["criticism"] + "\n"
-
-                    msg += "Command Name: " + parsed["command"]["name"] + "\n"
-                    
-                    command_args = parsed["command"]["args"]
-
-                    msg += "Command Arguments:\n"
-
-                    for key, value in command_args.items():
-                        msg += f"Argument name: {key}, Argument value: {value}\n"
-                    await channel.send("--------------------------------------------------")
-                    await channel.send(msg)
+                    embedmsg = parseAutoGPTMessage(message)
+                    await channel.send(embed = embedmsg)
                 except:
-                    await channel.send("--------------------------------------------------")
                     try:
-                        await channel.send(message)
+                        await channel.send("```" + message["role"] + message["content"] + "```")
                     except:
                         await channel.send("A response from AutoGPT was failed to be parsed. Don't worry, this is not critical. However, if this error appears several times in a row, please ask for help. <3")
                 messagesToSend.remove(message)
@@ -127,10 +116,13 @@ def run_bot():
 
 def wait_for_user_input(name, args):
     arguments = ""
-    for key, value in args.items():
-        arguments += f"Argument name: {key} Argument value: {value}\n"
+    
+    #TODO: There has to be a bettter way to check this than this shitty if
+    if "items" in args:
+        for key, value in args.items():
+            arguments += f"Argument name: {key} Argument value: {value}\n"
 
-    messagesToSend.append("AutoGPT wants to run the command " + name + " with the arguments:\n" + arguments + "Reply with y for yes, n for no or feedback to give to the bot.")
+    messagesToSend.append(Message(role="", content="AutoGPT wants to run the command " + name + " with the arguments:\n" + arguments + "Reply with y for yes, n for no or feedback to give to the bot."))
     waitingForReply[0] = True
 
     while waitingForReply[0]:
