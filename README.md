@@ -1,7 +1,7 @@
 # AutoGPT-Discord
 ## A plugin to enable you to control and watch your AutoGPT instance from Discord!
 
-<img width="1396" alt="Screenshot 2023-05-04 at 9 20 42 PM" src="https://user-images.githubusercontent.com/107640947/236398536-fd57dad6-1fb7-42a7-ae3f-e231a9e2a4c1.png">
+![ee](https://github.com/gravelBridge/AutoGPT-Discord/assets/107640947/90eaad77-eed3-4375-a60d-9145c7038103)
 
 <img width="1470" alt="Screenshot 2023-05-04 at 9 21 15 PM" src="https://user-images.githubusercontent.com/107640947/236398607-5145f9f9-015b-4573-90ac-435dd118ea79.png">
 
