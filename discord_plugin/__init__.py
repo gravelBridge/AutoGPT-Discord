@@ -1,9 +1,9 @@
 """This is the AutoGPT Discord Plugin."""
-from typing import Any, Dict, List, Optional, Tuple, TypeVar, TypedDict
+from typing import Any, Dict, List, Optional, Tuple, TypeVar
 from colorama import Fore
 from auto_gpt_plugin_template import AutoGPTPluginTemplate
 
-from .discord_plugin import required_info_set, run_bot, wait_for_user_input, commandUnauthorized, messagesToSend, userReply, waitingForReply, finishedLoggingIn
+from .discord_plugin import required_info_set, run_bot, wait_for_user_input, commandUnauthorized, Message, messagesToSend, userReply, waitingForReply, finishedLoggingIn
 import threading
 import time
 import os
@@ -12,20 +12,15 @@ PromptGenerator = TypeVar("PromptGenerator")
 
 authedCommand = ""
 
-class Message(TypedDict):
-    role: str
-    content: str
-
-
 class AutoGPTDiscord(AutoGPTPluginTemplate):
     """
-    This the AutoGPT Wolfram Alpha Plugin..
+    This the AutoGPT Discord Plugin..
     """
 
     def __init__(self):
         super().__init__()
         self._name = "AutoGPTDiscord"
-        self._version = "0.1.0"
+        self._version = "0.1.1"
         self._description = "AutoGPT Discord Plugin: Interact with AutoGPT through discord."
 
     def can_handle_on_response(self) -> bool:
@@ -39,7 +34,7 @@ class AutoGPTDiscord(AutoGPTPluginTemplate):
     def on_response(self, response: str, *args, **kwargs) -> str:
         """This method is called when a response is received from the model."""
         
-        messagesToSend.append(response)
+        messagesToSend.append(Message(role="ON_RESPONSE", content=response))
         return response
 
     def can_handle_post_prompt(self) -> bool:
@@ -92,10 +87,7 @@ class AutoGPTDiscord(AutoGPTPluginTemplate):
                 + f"{self._name} - {self._version} - Discord plugin not loaded, because not all the environmental variables were set in the env configuration file."
             )
 
-        
-
-        messagesToSend.append("AutoGPT Discord Bot up and running! Make sure to leave a star on the GitHub repo! <3")
-
+        messagesToSend.append(Message(role="ON_BOOT", content=""))
 
         return prompt
     
@@ -138,7 +130,7 @@ class AutoGPTDiscord(AutoGPTPluginTemplate):
             str: The resulting response.
         """
 
-        messagesToSend.append(response)
+        messagesToSend.append(Message(role="POST_PLANNING", content=response))
         return response
 
     def can_handle_pre_instruction(self) -> bool:
@@ -197,7 +189,7 @@ class AutoGPTDiscord(AutoGPTPluginTemplate):
             str: The resulting response.
         """
         
-        messagesToSend.append(response)
+        messagesToSend.append(Message(role="POST_INSTRUCTION", content=response))
         return response
 
 
@@ -257,7 +249,7 @@ class AutoGPTDiscord(AutoGPTPluginTemplate):
             str: The resulting response.
         """
         
-        messagesToSend.append(response)
+        messagesToSend.append(Message(role="POST_COMMAND", content=response))
         return response
 
     def can_handle_chat_completion(
@@ -336,7 +328,7 @@ class AutoGPTDiscord(AutoGPTPluginTemplate):
         """
 
         print("user input function called")
-        messagesToSend.append(user_input)
+        messagesToSend.append(Message(role="REQUEST_INPUT", content=user_input))
         waitingForReply[0] = True
 
         while(len(userReply) == 0):
@@ -360,5 +352,5 @@ class AutoGPTDiscord(AutoGPTPluginTemplate):
         Args:
             message (str): The message to report.
         """
-        messagesToSend.append(message)
+        messagesToSend.append(Message(role="REPORT", content=message))
 
