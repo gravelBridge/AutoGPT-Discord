@@ -48,8 +48,7 @@ class AutoGPT_Discord(discord.Client):
         if len(messagesToSend) > 0:
             for message in messagesToSend:
                 try:
-                    embedmsg = parseAutoGPTMessage(message)
-                    await channel.send(embed = embedmsg)
+                    await channel.send(embed = parseAutoGPTMessage(message))
                 except:
                     try:
                         await channel.send("```" + message["role"] + message["content"] + "```")
@@ -66,9 +65,6 @@ class AutoGPT_Discord(discord.Client):
         
             print(Fore.GREEN + "User replied: " + user_input.content)
 
-            await channel.send("--------------------------------------------------")
-            await channel.send("You replied: " + user_input.content)
-
             userReply.append(user_input.content)
 
             waitingForReply[0] = False
@@ -79,7 +75,7 @@ class AutoGPT_Discord(discord.Client):
             return
         
         if message.content.startswith(BOT_PREFIX + "shutdown") and str(message.author.id) in AUTHORIZED_USER_IDS:
-            await message.reply("AutoGPT Shut Down!")
+            await message.reply("AutoGPT Shutdown!")
             os._exit(0)
         
         elif message.content.startswith(BOT_PREFIX + "shutdown"):
@@ -115,14 +111,8 @@ def run_bot():
     client.run(BOT_TOKEN)
 
 def wait_for_user_input(name, args):
-    arguments = ""
-    
-    #TODO: There has to be a bettter way to check this than this shitty if, also that parse dont work properly
-    if "items" in args:
-        for key, value in args.items():
-            arguments += f"Argument name: {key} Argument value: {value}\n"
-
-    messagesToSend.append(Message(role="", content="AutoGPT wants to run the command " + name + " with the arguments:\n" + arguments + "Reply with y for yes, n for no or feedback to give to the bot."))
+    #TODO: Thats sus, probably can do without dumps nesting
+    messagesToSend.append(Message(role="REQUEST", content=json.dumps({'name': name, 'args': args})))
     waitingForReply[0] = True
 
     while waitingForReply[0]:
