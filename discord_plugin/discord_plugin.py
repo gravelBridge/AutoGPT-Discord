@@ -3,7 +3,7 @@ import os
 from typing import TypedDict
 from colorama import Fore
 from discord.ext import tasks
-from .discord_parser import parseAutoGPTMessage, parsingError
+from .discord_embedder import autoGPTMessageEmbed, parsingErrorEmbed, shutdownEmbed
 import json
 import time
 
@@ -48,12 +48,12 @@ class AutoGPT_Discord(discord.Client):
         if len(messagesToSend) > 0:
             for message in messagesToSend:
                 try:
-                    await channel.send(embed = parseAutoGPTMessage(message))
+                    await channel.send(embed = autoGPTMessageEmbed(message))
                 except:
                     try:
                         await channel.send("```" + message["role"] + message["content"] + "```")
                     except:
-                        await channel.send(embed = parsingError())
+                        await channel.send(embed = parsingErrorEmbed())
                 messagesToSend.remove(message)
         
         if waitingForReply[0]:
@@ -75,11 +75,11 @@ class AutoGPT_Discord(discord.Client):
             return
         
         if message.content.startswith(BOT_PREFIX + "shutdown") and str(message.author.id) in AUTHORIZED_USER_IDS:
-            await message.reply("AutoGPT Shutdown!")
+            await message.reply(embed = shutdownEmbed("AutoGPT Discord Bot going back to sleep. Bye!"))
             os._exit(0)
         
         elif message.content.startswith(BOT_PREFIX + "shutdown"):
-            await message.reply("You aren't authorized dummy >:(")
+            await message.reply(embed = shutdownEmbed("You aren't authorized dummy >:("))
 
     @background.before_loop
     async def before_my_task(self):

@@ -6,14 +6,14 @@ class Message(TypedDict):
     role: str
     content: any
     
-def parseAutoGPTMessage(message: Message) -> discord.Embed:
+def autoGPTMessageEmbed(message: Message) -> discord.Embed:
     """
-    Initialize Discord message embedding
+    Message embedding
     """
     if(message["role"] == "ON_BOOT"):
         embed=discord.Embed(title=translateType(message["role"]),
                                 url="https://github.com/gravelBridge/AutoGPT-Discord",
-                                description="AutoGPT Discord Bot just woke up. Peace!",
+                                description="AutoGPT Discord Bot just woke up. Hello!",
                                 color=discord.Color.purple())
         embed.set_author(name="gravelBridge", url="https://github.com/gravelBridge/AutoGPT-Discord", icon_url="https://avatars.githubusercontent.com/u/107640947?v=4")
         embed.set_thumbnail(url="")
@@ -51,7 +51,7 @@ def parseAutoGPTMessage(message: Message) -> discord.Embed:
             Base AutoGPT request formatter
             """
 
-            embed.add_field(name=bold("Action:"), value=f"I want to run {italic(parsed['name'])} command with the following arguments", inline=False)
+            embed.add_field(name=bold("Action:"), value=f"I want to run {italic(parsed['name'])} command with the following arguments:", inline=False)
 
             command_args = parsed["args"]
             msg = ""
@@ -71,7 +71,10 @@ def parseAutoGPTMessage(message: Message) -> discord.Embed:
     
     return embed
 
-def parsingError() -> discord.Embed:
+def parsingErrorEmbed() -> discord.Embed:
+    """
+    Parsing error embedding
+    """
     embed=discord.Embed(title= "Parsing Error",
                                 url="",
                                 description="",
@@ -82,6 +85,19 @@ def parsingError() -> discord.Embed:
 
     return embed
 
+def shutdownEmbed(message: str) -> discord.Embed:
+    """
+    Shutdown embedding
+    """
+    embed=discord.Embed(title= "Adios!",
+                                url="https://github.com/CTHULHUCTHULHU/AutoGPT-Discord",
+                                description="",
+                                color=discord.Color.purple())
+    embed.set_author(name="CTHULHUCTHULHU", url="https://github.com/CTHULHUCTHULHU/AutoGPT-Discord", icon_url="https://avatars.githubusercontent.com/u/134018141?v=4")
+    embed.set_thumbnail(url="")
+    embed.add_field(name="", value=message, inline=False)
+
+    return embed
 
 #TODO: There has to be better mapping than this shit
 def translateType(message: str) -> str:
