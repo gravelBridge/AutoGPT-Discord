@@ -80,6 +80,8 @@ Remember to use your bot prefix directly before running any commands!
 
 - shutdown: Shuts down the entire AutoGPT instance.
 
+### Shoutout to @CTHULHUCTHULHU for reworking most of the plugin, really amazing work <3
+
 ## 🚀 That's it! Congratulations!
 
 **Make sure to leave a star on this repository! Thank you!**
