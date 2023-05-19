@@ -3,7 +3,7 @@ import os
 from typing import TypedDict
 from colorama import Fore
 from discord.ext import tasks
-from .discord_parser import parseAutoGPTMessage
+from .discord_parser import parseAutoGPTMessage, parsingError
 import json
 import time
 
@@ -53,7 +53,7 @@ class AutoGPT_Discord(discord.Client):
                     try:
                         await channel.send("```" + message["role"] + message["content"] + "```")
                     except:
-                        await channel.send("A response from AutoGPT was failed to be parsed. Don't worry, this is not critical. However, if this error appears several times in a row, please ask for help. <3")
+                        await channel.send(embed = parsingError())
                 messagesToSend.remove(message)
         
         if waitingForReply[0]:

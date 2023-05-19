@@ -6,7 +6,7 @@ class Message(TypedDict):
     role: str
     content: any
     
-def parseAutoGPTMessage(message: Message):
+def parseAutoGPTMessage(message: Message) -> discord.Embed:
     """
     Initialize Discord message embedding
     """
@@ -70,6 +70,18 @@ def parseAutoGPTMessage(message: Message):
         embed.add_field(name="", value=message["content"], inline=False)
     
     return embed
+
+def parsingError() -> discord.Embed:
+    embed=discord.Embed(title= "Parsing Error",
+                                url="",
+                                description="",
+                                color=discord.Color.purple())
+    embed.set_author(name="", url="", icon_url="")
+    embed.set_thumbnail(url="")
+    embed.add_field(name="", value="I'm sorry, I was unable to parse AutoGPT response", inline=False)
+
+    return embed
+
 
 #TODO: There has to be better mapping than this shit
 def translateType(message: str) -> str:
